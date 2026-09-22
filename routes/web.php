@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ContentController;
@@ -8,19 +9,13 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Contributor\ArticleController as ContributorArticleController;
 
+/*
+|--------------------------------------------------------------------------
+| Public & Auth Routes
+|--------------------------------------------------------------------------
+*/
 
-// ✍️ Area Kontributor / Penulis Artikel
-Route::prefix('penulis')->middleware(['auth', 'contributor'])->name('contributor.')->group(function () {
-    Route::get('/artikel', [ContributorArticleController::class, 'index'])->name('articles.index');
-    Route::get('/artikel/buat', [ContributorArticleController::class, 'create'])->name('articles.create');
-    Route::post('/artikel', [ContributorArticleController::class, 'store'])->name('articles.store');
-    Route::get('/artikel/{id}/edit', [ContributorArticleController::class, 'edit'])->name('articles.edit');
-    Route::put('/artikel/{id}', [ContributorArticleController::class, 'update'])->name('articles.update');
-    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-    Route::post('/register', [AuthController::class, 'register']);
-});
-
-// Public & Auth Routes
+// Halaman Utam / Beranda
 Route::get('/', function () {
     $articles = \App\Models\Article::with(['author', 'category'])
         ->where('status', 'published')
@@ -30,15 +25,26 @@ Route::get('/', function () {
     return view('home', compact('articles'));
 })->name('home');
 
-Route::get('/artikel', function () {
+// Halaman Daftar Artikel & Pencarian Public
+Route::get('/artikel', function (Request $request) {
+    $search = $request->input('search');
+
     $articles = \App\Models\Article::with(['author', 'category'])
         ->where('status', 'published')
+        ->when($search, function ($query) use ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('content', 'like', "%{$search}%");
+            });
+        })
         ->latest('updated_at')
-        ->paginate(9);
+        ->paginate(9)
+        ->withQueryString();
 
     return view('articles.index', compact('articles'));
 })->name('articles.index');
 
+// Detail Artikel
 Route::get('/artikel/{slug}', function ($slug) {
     $article = \App\Models\Article::with(['author', 'category'])
         ->where('slug', $slug)
@@ -47,6 +53,7 @@ Route::get('/artikel/{slug}', function ($slug) {
     return view('articles.show', compact('article'));
 })->name('articles.show');
 
+// Auth Routes
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -54,7 +61,27 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 
-// Backward compatibility redirect for /dashboard
+
+/*
+|--------------------------------------------------------------------------
+| ✍️ Area Kontributor / Penulis Artikel (Role: Contributor)
+|--------------------------------------------------------------------------
+*/
+Route::prefix('penulis')->middleware(['auth', 'contributor'])->name('contributor.')->group(function () {
+    Route::get('/artikel', [ContributorArticleController::class, 'index'])->name('articles.index');
+    Route::get('/artikel/buat', [ContributorArticleController::class, 'create'])->name('articles.create');
+    Route::post('/artikel', [ContributorArticleController::class, 'store'])->name('articles.store');
+    Route::get('/artikel/{id}/edit', [ContributorArticleController::class, 'edit'])->name('articles.edit');
+    Route::put('/artikel/{id}', [ContributorArticleController::class, 'update'])->name('articles.update');
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| 🔐 Admin Dashboard & CMS Routes (Role: Admin)
+|--------------------------------------------------------------------------
+*/
+// Redirect lama untuk /dashboard
 Route::get('/dashboard', function () {
     return redirect()->route('admin.dashboard');
 });
@@ -62,7 +89,6 @@ Route::get('/dashboard/{any}', function () {
     return redirect()->route('admin.dashboard');
 })->where('any', '.*');
 
-// 🔐 Admin Dashboard & CMS Routes (RBAC Protected: Auth & Admin Role)
 Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(function () {
     // 1. Dashboard Overview
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');

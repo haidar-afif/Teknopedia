@@ -60,17 +60,25 @@
                     </a>
                 </div>
 
-                <!-- Search & Categories (Desktop) -->
-                <div class="hidden md:flex flex-1 items-center justify-center px-8 gap-6">
-                    <div class="relative w-full max-w-md group">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-slate-400 group-focus-within:text-softcyan-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                        </div>
-                        <input type="text" class="block w-full pl-10 pr-3 py-2 border border-slate-200 rounded-full leading-5 bg-slate-50/50 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-softcyan-400 focus:border-softcyan-400 focus:bg-white transition-all sm:text-sm" placeholder="Cari artikel, tutorial, atau error code...">
-                    </div>
-                </div>
+               <!-- Search & Categories (Desktop) -->
+<div class="hidden md:flex flex-1 items-center justify-center px-8 gap-6">
+    <!-- Tambahkan tag <form> di sini -->
+   <form action="{{ route('articles.index') }}" method="GET" class="relative w-full max-w-md group">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-slate-400 group-focus-within:text-softcyan-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+        </div>
+        <!-- Tambahkan attribute name="search" dan value="{{ request('search') }}" -->
+        <input
+            type="text"
+            name="search"
+            value="{{ request('search') }}"
+            class="block w-full pl-10 pr-3 py-2 border border-slate-200 rounded-full leading-5 bg-slate-50/50 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-softcyan-400 focus:border-softcyan-400 focus:bg-white transition-all sm:text-sm"
+            placeholder="Cari artikel, tutorial, atau error code..."
+        >
+    </form>
+</div>
 
                <!-- Right Side (Login/Register / Profile) -->
 <div class="hidden md:flex items-center gap-3">

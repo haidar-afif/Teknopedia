@@ -23,7 +23,7 @@
                     {{ $isEdit ? 'Sunting Artikel' : 'Buat Artikel Baru' }}
                 </h2>
             </div>
-            
+
             <div class="flex items-center gap-2.5 flex-wrap">
                 <!-- Batal Button -->
                 <button type="button" onclick="confirmCancel()" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 bg-white border border-slate-200 hover:bg-slate-50 transition-colors shadow-xs">
@@ -59,29 +59,21 @@
         @endif
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            
+
             <!-- Left 2 Cols: Main Editor & Title -->
             <div class="lg:col-span-2 space-y-5">
-                
+
                 <!-- Title & Slug Card -->
                 <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs space-y-4">
                     <div>
                         <label for="title" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Judul Artikel <span class="text-rose-500">*</span></label>
                         <input type="text" name="title" id="title" value="{{ old('title', $article->title) }}" placeholder="Contoh: Arsitektur Microservices Modern dengan Docker & Kubernetes" required oninput="generateSlug(this.value)" class="block w-full px-4 py-2.5 text-sm sm:text-base font-medium border border-slate-200 rounded-xl bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-softcyan-400/50 focus:border-softcyan-400 transition-all">
                     </div>
-
-                    <div>
-                        <div class="flex items-center justify-between mb-1">
-                            <label for="slug" class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">URL Slug (Auto-generated)</label>
-                            <span class="text-[11px] text-softred-500 font-mono">/artikel/<span id="slug-preview">{{ old('slug', $article->slug ?? 'judul-artikel') }}</span></span>
-                        </div>
-                        <input type="text" name="slug" id="slug" value="{{ old('slug', $article->slug) }}" placeholder="judul-artikel-otomatis" class="block w-full px-3.5 py-2 text-xs font-mono border border-slate-200 rounded-xl bg-slate-50 text-slate-700 focus:bg-white focus:outline-none focus:ring-2 focus:ring-softcyan-400/50 focus:border-softcyan-400">
-                    </div>
                 </div>
 
                 <!-- Rich Text / Markdown Editor -->
                 <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
-                    
+
                     <!-- Editor Tabs & Toolbar -->
                     <div class="border-b border-slate-200/80 bg-slate-50/80 px-4 py-2.5 flex flex-wrap items-center justify-between gap-2">
                         <!-- Mode Tabs -->
@@ -133,11 +125,11 @@
 
             <!-- Right 1 Col: Metadata & Media -->
             <div class="space-y-5">
-                
+
                 <!-- Status & Publish Setting -->
                 <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs space-y-4">
                     <h3 class="font-outfit font-bold text-sm text-slate-900 border-b border-slate-100 pb-2">Status Publikasi</h3>
-                    
+
                     <div>
                         <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Visibilitas Artikel</label>
                         <div class="grid grid-cols-2 gap-2">
@@ -276,7 +268,7 @@
                 writeView.classList.add('hidden');
                 previewView.classList.remove('hidden');
                 toolbar.classList.add('opacity-40', 'pointer-events-none');
-                
+
                 writeBtn.className = "px-3 py-1 rounded-md text-slate-600 hover:text-slate-900";
                 previewBtn.className = "px-3 py-1 rounded-md bg-white text-softred-500 shadow-xs";
 
@@ -294,7 +286,7 @@
         function renderMarkdownPreview() {
             const raw = document.getElementById('content').value;
             const target = document.getElementById('preview-content-rendered');
-            
+
             // Simple markdown parser for preview
             let html = raw
                 .replace(/^### (.*$)/gim, '<h3 class="text-base font-bold text-slate-900 mt-4 mb-2">$1</h3>')

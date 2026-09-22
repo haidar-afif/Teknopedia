@@ -5,8 +5,20 @@
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="mb-8">
-        <h1 class="text-3xl font-bold text-slate-800 font-outfit">Semua Artikel</h1>
-        <p class="text-slate-500 text-sm mt-1">Jelajahi seluruh koleksi artikel dan wawasan terbaru.</p>
+        <h1 class="text-3xl font-bold text-slate-800 font-outfit">
+            @if(request('search'))
+                Hasil Pencarian: "{{ request('search') }}"
+            @else
+                Semua Artikel
+            @endif
+        </h1>
+        <p class="text-slate-500 text-sm mt-1">
+            @if(request('search'))
+                Menampilkan artikel yang cocok dengan kata kunci pencarian kamu.
+            @else
+                Jelajahi seluruh koleksi artikel dan wawasan terbaru.
+            @endif
+        </p>
     </div>
 
     <!-- Grid Artikel -->
@@ -44,8 +56,22 @@
                 </div>
             </article>
         @empty
-            <div class="col-span-full text-center py-12">
-                <p class="text-slate-500">Belum ada artikel yang tersedia.</p>
+            <div class="col-span-full text-center py-16 bg-white rounded-2xl border border-dashed border-slate-200">
+                <svg class="w-12 h-12 mx-auto text-slate-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                <p class="text-slate-600 font-medium text-base">
+                    @if(request('search'))
+                        Tidak ditemukan artikel dengan kata kunci "{{ request('search') }}"
+                    @else
+                        Belum ada artikel yang tersedia.
+                    @endif
+                </p>
+                @if(request('search'))
+                    <a href="{{ route('articles.index') }}" class="inline-block mt-4 text-xs font-semibold text-softcyan-600 hover:underline">
+                        ← Tampilkan semua artikel
+                    </a>
+                @endif
             </div>
         @endforelse
     </div>

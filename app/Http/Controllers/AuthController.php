@@ -38,11 +38,12 @@ class AuthController extends Controller
                 return redirect()->intended(route('admin.dashboard'));
             }
 
+            // Jika Penulis/Contributor -> Diarahkan ke Halaman Utama (Home)
             if (Auth::user()->role === 'contributor') {
-                return redirect()->intended(route('contributor.articles.index'));
+                return redirect()->intended(route('home'))->with('success', 'Selamat datang kembali!');
             }
 
-            return redirect()->intended('/');
+            return redirect()->intended(route('home'));
         }
 
         return back()->withErrors([
@@ -77,7 +78,8 @@ class AuthController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        return redirect()->route('contributor.articles.index')
+        // Setelah daftar, juga diarahkan ke Halaman Utama (Home)
+        return redirect()->route('home')
             ->with('success', 'Selamat datang! Akun penulis berhasil dibuat.');
     }
 
@@ -90,4 +92,4 @@ class AuthController extends Controller
 
         return redirect('/');
     }
-}   
+}

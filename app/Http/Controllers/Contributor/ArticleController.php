@@ -10,14 +10,25 @@ use Illuminate\Support\Str;
 
 class ArticleController extends Controller
 {
-    // Tampilkan hanya artikel buatan penulis ini saja
-    public function index()
+    // Tampilkan hanya artikel buatan penulis yang sedang login
+    public function index(Request $request)
     {
-        $articles = Article::where('user_id', auth()->id())
-            ->latest()
-            ->paginate(10);
+        $search = $request->input('search');
 
-        return view('articles.index', compact('articles'));
+        $articles = Article::where('user_id', auth()->id())
+            ->with('category')
+            ->when($search, function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('title', 'like', "%{$search}%")
+                      ->orWhere('content', 'like', "%{$search}%");
+                });
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        // DIPERBAIKI: Mengarahkan ke view dashboard penulis
+        return view('contributor.articles.index', compact('articles'));
     }
 
     public function create()
@@ -30,7 +41,7 @@ class ArticleController extends Controller
     {
         $request->validate([
             'title' => 'required|max:255',
-            'category_id' => 'required',
+            'category_id' => 'required|exists:categories,id',
             'content' => 'required',
         ]);
 
@@ -45,5 +56,36 @@ class ArticleController extends Controller
 
         return redirect()->route('contributor.articles.index')
             ->with('success', 'Artikel berhasil dikirim dan menunggu persetujuan Admin.');
+    }
+
+    public function edit($id)
+    {
+        // Pastikan penulis hanya bisa mengedit artikel miliknya sendiri
+        $article = Article::where('user_id', auth()->id())->findOrFail($id);
+        $categories = Category::all();
+
+        return view('contributor.articles.edit', compact('article', 'categories'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $article = Article::where('user_id', auth()->id())->findOrFail($id);
+
+        $request->validate([
+            'title' => 'required|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'content' => 'required',
+        ]);
+
+        $article->update([
+            'title' => $request->title,
+            'slug' => Str::slug($request->title) . '-' . Str::random(5),
+            'content' => $request->content,
+            'category_id' => $request->category_id,
+            'status' => 'pending', // Kembali ke pending jika diedit (opsional)
+        ]);
+
+        return redirect()->route('contributor.articles.index')
+            ->with('success', 'Artikel berhasil diperbarui.');
     }
 }
