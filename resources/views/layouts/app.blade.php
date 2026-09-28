@@ -21,6 +21,7 @@
     <!-- 2. TARUH DI SINI: Konfigurasi warna kustom agar dibaca oleh CDN -->
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -36,9 +37,27 @@
                             400: '#F7ADAD',
                             500: '#F29191',
                         }
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        }
+                    },
+                    animation: {
+                        float: 'float 5s ease-in-out infinite',
                     }
                 }
             }
+        }
+    </script>
+    
+    <!-- Dark Mode Preference Check (to prevent FOUC) -->
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
         }
     </script>
 
@@ -46,17 +65,17 @@
     <script src="{{ asset('js/app.js') }}"></script>
 </head>
 
-<body class="font-sans antialiased bg-slate-50 text-slate-800 selection:bg-softcyan-400 selection:text-slate-900 flex flex-col min-h-screen">
+<body class="font-sans antialiased bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 selection:bg-softcyan-400 selection:text-slate-900 flex flex-col min-h-screen transition-colors duration-300">
 
     <!-- Navbar -->
-    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-softcyan-400/30 transition-all duration-300">
+    <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-softcyan-400/30 dark:border-slate-800 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="/" class="flex items-center gap-2 group">
                         <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-softcyan-400 to-softcyan-500 flex items-center justify-center text-slate-800 font-bold text-lg shadow-lg shadow-softcyan-400/30 group-hover:shadow-softcyan-400/50 transition-all">T  </div>
-                        <span class="font-outfit font-bold text-xl tracking-tight text-slate-800">Tekno<span class="text-softred-500">Pedia</span></span>
+                        <span class="font-outfit font-bold text-xl tracking-tight text-slate-800 dark:text-slate-100 transition-colors">Tekno<span class="text-softred-500">Pedia</span></span>
                     </a>
                 </div>
 
@@ -74,7 +93,7 @@
             type="text"
             name="search"
             value="{{ request('search') }}"
-            class="block w-full pl-10 pr-3 py-2 border border-slate-200 rounded-full leading-5 bg-slate-50/50 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-softcyan-400 focus:border-softcyan-400 focus:bg-white transition-all sm:text-sm"
+            class="block w-full pl-10 pr-3 py-2 border border-slate-200 dark:border-slate-700 rounded-full leading-5 bg-slate-50/50 dark:bg-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-softcyan-400 focus:border-softcyan-400 dark:focus:bg-slate-900 focus:bg-white transition-all sm:text-sm"
             placeholder="Cari artikel, tutorial, atau error code..."
         >
     </form>
@@ -82,6 +101,14 @@
 
                <!-- Right Side (Login/Register / Profile) -->
 <div class="hidden md:flex items-center gap-3">
+    <!-- Dark Mode Toggle -->
+    <button id="theme-toggle" type="button" class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-200 dark:focus:ring-slate-700 rounded-lg text-sm p-2 transition-colors">
+        <!-- Dark icon (Moon) -->
+        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+        <!-- Light icon (Sun) -->
+        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+    </button>
+    
     @guest
         {{-- Tampilan saat BELUM login --}}
         <a href="{{ route('login') }}" class="text-sm font-medium text-slate-600 hover:text-softred-500 px-3 py-2 transition-colors">
@@ -128,16 +155,16 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-softcyan-400/30 mt-auto">
+    <footer class="bg-white dark:bg-slate-900 border-t border-softcyan-400/30 dark:border-slate-800 mt-auto transition-colors duration-300">
         <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
             <div class="md:flex md:items-center md:justify-between">
                 <div class="flex justify-center md:justify-start mb-6 md:mb-0">
                     <a href="/" class="flex items-center gap-2 grayscale hover:grayscale-0 transition-all opacity-70 hover:opacity-100">
                         <div class="w-6 h-6 rounded bg-softcyan-400 flex items-center justify-center text-slate-800 font-bold text-xs">T</div>
-                        <span class="font-outfit font-bold text-lg text-slate-800">Tekno<span class="text-softred-500">Pedia</span></span>
+                        <span class="font-outfit font-bold text-lg text-slate-800 dark:text-slate-200">Tekno<span class="text-softred-500">Pedia</span></span>
                     </a>
                 </div>
-                <div class="flex justify-center space-x-6 md:order-2 text-sm text-slate-500">
+                <div class="flex justify-center space-x-6 md:order-2 text-sm text-slate-500 dark:text-slate-400">
                     <a href="#" class="hover:text-softred-500 transition-colors">Tentang Kami</a>
                     <a href="#" class="hover:text-softred-500 transition-colors">Kebijakan Privasi</a>
                     <a href="#" class="hover:text-softred-500 transition-colors">Ketentuan</a>
@@ -166,6 +193,43 @@
             </div>
         @endif
     </div>
+
+    <!-- Dark Mode Script -->
+    <script>
+        var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            themeToggleLightIcon.classList.remove('hidden');
+        } else {
+            themeToggleDarkIcon.classList.remove('hidden');
+        }
+
+        var themeToggleBtn = document.getElementById('theme-toggle');
+
+        themeToggleBtn.addEventListener('click', function() {
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+
+            if (localStorage.getItem('color-theme')) {
+                if (localStorage.getItem('color-theme') === 'light') {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                }
+            } else {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                }
+            }
+        });
+    </script>
 
     @stack('scripts')
 </body>

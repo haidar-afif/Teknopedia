@@ -3,7 +3,23 @@
 @section('title', '- ' . $article->title)
 
 @section('content')
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col lg:flex-row gap-8 items-start">
+    
+    <!-- Left Sidebar: Table of Contents -->
+    <aside id="toc-sidebar" class="hidden lg:block w-full lg:w-64 flex-shrink-0 sticky top-24 transition-all duration-300">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-5">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="font-outfit font-bold text-slate-800 dark:text-slate-200 text-lg">Daftar Isi</h3>
+                <button id="toc-toggle" class="text-slate-500 hover:text-softred-500 transition-colors text-sm font-medium">Sembunyikan</button>
+            </div>
+            <nav id="toc-nav" class="space-y-1 text-sm max-h-[calc(100vh-200px)] overflow-y-auto pr-2 custom-scrollbar transition-all duration-300">
+                <!-- TOC items will be injected here via JS -->
+            </nav>
+        </div>
+    </aside>
+
+    <!-- Right Content: Article -->
+    <div class="flex-1 max-w-4xl w-full">
     <!-- Breadcrumb & Edit Button (Opsional) -->
     <div class="flex items-center justify-between mb-8">
         <nav class="flex text-sm" aria-label="Breadcrumb">
@@ -31,7 +47,7 @@
 
     <!-- Article Header -->
     <header class="mb-12">
-        <h1 class="text-3xl md:text-5xl font-bold text-slate-900 font-outfit leading-tight mb-6">
+        <h1 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-slate-100 font-outfit leading-tight mb-6">
             {{ $article->title }}
         </h1>
         
@@ -41,8 +57,8 @@
                     {{ strtoupper(substr($article->author->name ?? 'Admin', 0, 2)) }}
                 </div>
                 <div>
-                    <p class="font-medium text-slate-900">{{ $article->author->name ?? 'Admin' }}</p>
-                    <p class="text-slate-500">{{ ucfirst($article->author->role ?? 'Contributor') }}</p>
+                    <p class="font-medium text-slate-900 dark:text-slate-200">{{ $article->author->name ?? 'Admin' }}</p>
+                    <p class="text-slate-500 dark:text-slate-400">{{ ucfirst($article->author->role ?? 'Contributor') }}</p>
                 </div>
             </div>
             <div class="hidden sm:block w-1.5 h-1.5 rounded-full bg-slate-300"></div>
@@ -70,7 +86,7 @@
     @endif
 
     <!-- Article Content (Prose) -->
-    <article class="prose prose-slate lg:prose-lg max-w-none prose-headings:font-outfit prose-a:text-softcyan-500 hover:prose-a:text-softcyan-600 prose-img:rounded-xl">
+    <article class="prose prose-slate dark:prose-invert lg:prose-lg max-w-none prose-headings:font-outfit prose-a:text-softcyan-500 hover:prose-a:text-softcyan-600 prose-img:rounded-xl">
         {!! Str::markdown($article->content) !!}
     </article>
 
@@ -97,5 +113,111 @@
             </button>
         </div>
     </div>
+    </div>
 </div>
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const article = document.querySelector('.prose');
+        const tocNav = document.getElementById('toc-nav');
+        const tocToggle = document.getElementById('toc-toggle');
+        const tocSidebar = document.getElementById('toc-sidebar');
+        
+        if (!article || !tocNav) return;
+
+        const headings = article.querySelectorAll('h2, h3');
+        if (headings.length === 0) {
+            tocSidebar.classList.add('hidden');
+            tocSidebar.classList.remove('lg:block');
+            return;
+        }
+
+        headings.forEach((heading, index) => {
+            // Assign ID to heading if it doesn't have one
+            if (!heading.id) {
+                heading.id = 'heading-' + index;
+            }
+
+            const link = document.createElement('a');
+            link.href = '#' + heading.id;
+            link.textContent = heading.textContent;
+            link.className = 'block py-1.5 transition-colors hover:text-softcyan-500 dark:hover:text-softcyan-400 toc-link text-slate-600 dark:text-slate-400';
+            
+            if (heading.tagName.toLowerCase() === 'h3') {
+                link.classList.add('pl-4', 'text-sm');
+            } else {
+                link.classList.add('font-medium');
+            }
+
+            link.dataset.target = heading.id;
+            
+            // Smooth scrolling logic
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.getElementById(this.dataset.target);
+                if (target) {
+                    const headerOffset = 100; // Account for sticky navbar
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.scrollY - headerOffset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth"
+                    });
+                }
+            });
+
+            tocNav.appendChild(link);
+        });
+
+        // Intersection Observer for active state
+        const observerOptions = {
+            root: null,
+            rootMargin: '-100px 0px -60% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Remove active from all
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('text-softcyan-500', 'dark:text-softcyan-400', 'font-bold');
+                        link.classList.add('text-slate-600', 'dark:text-slate-400');
+                    });
+                    
+                    // Add active to current
+                    const activeLink = document.querySelector(`.toc-link[data-target="${entry.target.id}"]`);
+                    if (activeLink) {
+                        activeLink.classList.remove('text-slate-600', 'dark:text-slate-400');
+                        activeLink.classList.add('text-softcyan-500', 'dark:text-softcyan-400', 'font-bold');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        headings.forEach(heading => observer.observe(heading));
+
+        // Toggle functionality
+        if (tocToggle) {
+            let isHidden = false;
+            tocToggle.addEventListener('click', () => {
+                isHidden = !isHidden;
+                if (isHidden) {
+                    tocNav.style.maxHeight = '0px';
+                    tocNav.style.opacity = '0';
+                    tocNav.style.overflow = 'hidden';
+                    tocToggle.textContent = 'Tampilkan';
+                } else {
+                    tocNav.style.maxHeight = '500px';
+                    tocNav.style.opacity = '1';
+                    tocNav.style.overflow = 'auto';
+                    tocToggle.textContent = 'Sembunyikan';
+                }
+            });
+        }
+    });
+</script>
+@endpush
 @endsection
