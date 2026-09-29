@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Contributor\ArticleController as ContributorArticleController;
+use App\Http\Controllers\InteractionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -126,9 +127,21 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
         Route::delete('/{id}', [UserController::class, 'destroy'])->name('destroy');
     });
 
-    // 4. Site Settings
+   // 4. Site Settings
     Route::prefix('settings')->name('settings.')->group(function () {
         Route::get('/', [SettingController::class, 'index'])->name('index');
         Route::post('/', [SettingController::class, 'update'])->name('update');
     });
+
+}); // <-- INI ADALAH KURUNG PENUTUP GRUP ADMIN. JANGAN HAPUS INI.
+
+/*
+|--------------------------------------------------------------------------
+| Fitur Interaksi (Rating & Komentar)
+|--------------------------------------------------------------------------
+*/
+// Letakkan di luar grup admin agar namanya tetap 'rating.store' dan bisa diakses user biasa
+Route::middleware(['auth'])->group(function () {
+    Route::post('/articles/{article}/ratings', [InteractionController::class, 'storeRating'])->name('rating.store');
+    Route::post('/articles/{article}/comments', [InteractionController::class, 'storeComment'])->name('comment.store');
 });

@@ -164,11 +164,6 @@
                         <span class="font-outfit font-bold text-lg text-slate-800 dark:text-slate-200">Tekno<span class="text-softred-500">Pedia</span></span>
                     </a>
                 </div>
-                <div class="flex justify-center space-x-6 md:order-2 text-sm text-slate-500 dark:text-slate-400">
-                    <a href="#" class="hover:text-softred-500 transition-colors">Tentang Kami</a>
-                    <a href="#" class="hover:text-softred-500 transition-colors">Kebijakan Privasi</a>
-                    <a href="#" class="hover:text-softred-500 transition-colors">Ketentuan</a>
-                </div>
                 <div class="mt-8 md:mt-0 md:order-1">
                     <p class="text-center text-sm text-slate-500">
                         &copy; {{ date('Y') }} Teknopedia

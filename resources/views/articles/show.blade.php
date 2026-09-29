@@ -111,11 +111,11 @@
     </div>
 
     <!-- Right Sidebar: Pengaturan Tampilan -->
-    <aside id="settings-sidebar" class="hidden lg:block w-full lg:w-64 flex-shrink-0 sticky top-24 transition-all duration-300">
+    <aside id="settings-sidebar" x-data="appearanceSettings()" x-show="isVisible" class="hidden lg:block w-full lg:w-64 flex-shrink-0 sticky top-24 transition-all duration-300">
         <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-5">
             <div class="flex items-center justify-between mb-4">
                 <h3 class="font-outfit font-bold text-slate-800 dark:text-slate-200 text-lg">Tampilan</h3>
-                <button id="settings-toggle" class="text-slate-500 hover:text-softred-500 transition-colors text-sm font-medium">Sembunyi</button>
+                <button @click="isVisible = false" class="text-slate-500 hover:text-softred-500 transition-colors text-sm font-medium">Sembunyi</button>
             </div>
 
             <div id="settings-panel" class="space-y-6 text-sm transition-all duration-300 overflow-hidden">
@@ -124,49 +124,35 @@
                     <span class="block font-medium text-slate-700 dark:text-slate-300 mb-2">Ukuran Teks</span>
                     <div class="flex gap-2">
                         <label class="flex-1 cursor-pointer">
-                            <input type="radio" name="text-size" value="prose-sm" class="peer sr-only">
+                            <input type="radio" name="text-size" x-model="textSize" value="prose-sm" class="peer sr-only">
                             <div class="text-center px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 peer-checked:border-softcyan-500 peer-checked:bg-softcyan-50 dark:peer-checked:bg-softcyan-900/20 peer-checked:text-softcyan-600 dark:peer-checked:text-softcyan-400 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all text-xs font-medium">Kecil</div>
                         </label>
                         <label class="flex-1 cursor-pointer">
-                            <input type="radio" name="text-size" value="prose-base" class="peer sr-only" checked>
+                            <input type="radio" name="text-size" x-model="textSize" value="prose-base" class="peer sr-only">
                             <div class="text-center px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 peer-checked:border-softcyan-500 peer-checked:bg-softcyan-50 dark:peer-checked:bg-softcyan-900/20 peer-checked:text-softcyan-600 dark:peer-checked:text-softcyan-400 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all text-sm font-medium">Standar</div>
                         </label>
                         <label class="flex-1 cursor-pointer">
-                            <input type="radio" name="text-size" value="prose-lg" class="peer sr-only">
+                            <input type="radio" name="text-size" x-model="textSize" value="prose-lg" class="peer sr-only">
                             <div class="text-center px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 peer-checked:border-softcyan-500 peer-checked:bg-softcyan-50 dark:peer-checked:bg-softcyan-900/20 peer-checked:text-softcyan-600 dark:peer-checked:text-softcyan-400 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all text-base font-medium">Besar</div>
                         </label>
                     </div>
                 </div>
 
-                <!-- Lebar -->
-                <div>
-                    <span class="block font-medium text-slate-700 dark:text-slate-300 mb-2">Lebar Konten</span>
-                    <div class="flex gap-2">
-                        <label class="flex-1 cursor-pointer">
-                            <input type="radio" name="width-size" value="max-w-3xl" class="peer sr-only" checked>
-                            <div class="text-center px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 peer-checked:border-softcyan-500 peer-checked:bg-softcyan-50 dark:peer-checked:bg-softcyan-900/20 peer-checked:text-softcyan-600 dark:peer-checked:text-softcyan-400 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all font-medium">Standar</div>
-                        </label>
-                        <label class="flex-1 cursor-pointer">
-                            <input type="radio" name="width-size" value="max-w-5xl" class="peer sr-only">
-                            <div class="text-center px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 peer-checked:border-softcyan-500 peer-checked:bg-softcyan-50 dark:peer-checked:bg-softcyan-900/20 peer-checked:text-softcyan-600 dark:peer-checked:text-softcyan-400 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all font-medium">Lebar</div>
-                        </label>
-                    </div>
-                </div>
 
                 <!-- Warna (Tema) -->
                 <div>
                     <span class="block font-medium text-slate-700 dark:text-slate-300 mb-2">Tema Warna</span>
                     <div class="flex gap-2">
                         <label class="flex-1 cursor-pointer">
-                            <input type="radio" name="theme-color" value="auto" class="peer sr-only">
+                            <input type="radio" name="theme-color" x-model="themeColor" value="auto" class="peer sr-only">
                             <div class="text-center px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 peer-checked:border-softcyan-500 peer-checked:bg-softcyan-50 dark:peer-checked:bg-softcyan-900/20 peer-checked:text-softcyan-600 dark:peer-checked:text-softcyan-400 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all font-medium">Auto</div>
                         </label>
                         <label class="flex-1 cursor-pointer">
-                            <input type="radio" name="theme-color" value="light" class="peer sr-only">
+                            <input type="radio" name="theme-color" x-model="themeColor" value="light" class="peer sr-only">
                             <div class="text-center px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 peer-checked:border-softcyan-500 peer-checked:bg-softcyan-50 dark:peer-checked:bg-softcyan-900/20 peer-checked:text-softcyan-600 dark:peer-checked:text-softcyan-400 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all font-medium">Terang</div>
                         </label>
                         <label class="flex-1 cursor-pointer">
-                            <input type="radio" name="theme-color" value="dark" class="peer sr-only">
+                            <input type="radio" name="theme-color" x-model="themeColor" value="dark" class="peer sr-only">
                             <div class="text-center px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 peer-checked:border-softcyan-500 peer-checked:bg-softcyan-50 dark:peer-checked:bg-softcyan-900/20 peer-checked:text-softcyan-600 dark:peer-checked:text-softcyan-400 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all font-medium">Gelap</div>
                         </label>
                     </div>
@@ -175,8 +161,148 @@
         </div>
     </aside>
 </div>
+<hr class="my-8 border-gray-300">
 
+<!-- 1. BLOK RATING -->
+<section class="max-w-4xl mx-auto p-6 bg-gray-50 rounded-lg">
+    <div class="flex items-center justify-between">
+        <div>
+            <h3 class="text-xl font-semibold">Beri Nilai Artikel Ini</h3>
+            <p class="text-sm text-gray-600">Rata-rata Rating: {{ number_format($article->averageRating(), 1) }} / 5</p>
+        </div>
+
+        @auth
+            <!-- Form Rating untuk User Login -->
+            <form action="{{ route('rating.store', $article->id) }}" method="POST" class="flex gap-2">
+                @csrf
+                <select name="score" class="border p-2 rounded">
+                    <option value="5">5 - Sangat Bagus</option>
+                    <option value="4">4 - Bagus</option>
+                    <option value="3">3 - Cukup</option>
+                    <option value="2">2 - Kurang</option>
+                    <option value="1">1 - Sangat Buruk</option>
+                </select>
+                <button type="submit" class="bg-softred-500 text-white px-4 py-2 rounded hover:bg-red-500">Kirim Nilai</button>
+            </form>
+        @endauth
+
+        @guest
+            <!-- Pesan untuk Guest -->
+            <p class="text-sm text-red-500 italic">Silakan <a href="{{ route('login') }}" class="underline font-bold">login</a> untuk memberi rating.</p>
+        @endguest
+    </div>
+</section>
+
+<!-- 2. BLOK KOMENTAR -->
+<section class="max-w-4xl mx-auto p-6 mt-6">
+    <h3 class="text-2xl font-bold mb-4">Diskusi & Komentar ({{ $article->comments->count() }})</h3>
+
+    @auth
+        <!-- Form Komentar untuk User Login -->
+        <form action="{{ route('comment.store', $article->id) }}" method="POST" class="mb-8">
+            @csrf
+            <textarea name="content" class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-200" rows="3" placeholder="Tambahkan informasi atau koreksi..." required></textarea>
+            <button type="submit" class="mt-2 px-5 py-2 bg-softcyan-400 text-slate-600 font-semibold rounded-lg hover:bg-softcyan-500">Kirim Komentar</button>
+        </form>
+    @endauth
+
+    @guest
+        <!-- Pesan untuk Guest di Komentar -->
+        <div class="p-4 bg-yellow-50 text-yellow-800 rounded-lg mb-8 border border-yellow-200">
+            Anda harus <a href="{{ route('login') }}" class="font-bold underline">login</a> untuk ikut berdiskusi.
+        </div>
+    @endguest
+
+    <!-- Daftar Komentar (Bisa dibaca semua orang) -->
+    <div class="space-y-6">
+        @forelse ($article->comments as $comment)
+            <div class="border-b pb-4">
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="font-bold text-gray-800">{{ $comment->user->name }}</span>
+                    <span class="text-xs text-gray-500">{{ $comment->created_at->diffForHumans() }}</span>
+                    <span class="text-xs text-softred-500">{{ $comment->user->role }}</span>
+                </div>
+                <p class="text-gray-700">{{ $comment->content }}</p>
+            </div>
+        @empty
+            <p class="text-gray-500 italic">Belum ada komentar. Jadilah yang pertama berdiskusi!</p>
+        @endforelse
+    </div>
+</section>
 @push('scripts')
+<!-- Load Alpine.js -->
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('appearanceSettings', () => ({
+            textSize: localStorage.getItem('textSize') || 'prose-base',
+            contentWidth: localStorage.getItem('contentWidth') || 'max-w-4xl',
+            themeColor: localStorage.getItem('color-theme') || 'auto',
+            isVisible: true,
+
+            init() {
+                this.applyTextSize(this.textSize);
+                this.applyContentWidth(this.contentWidth);
+                this.applyTheme(this.themeColor);
+
+                this.$watch('textSize', (val) => {
+                    localStorage.setItem('textSize', val);
+                    this.applyTextSize(val);
+                });
+
+                this.$watch('contentWidth', (val) => {
+                    localStorage.setItem('contentWidth', val);
+                    this.applyContentWidth(val);
+                });
+
+                this.$watch('themeColor', (val) => {
+                    localStorage.setItem('color-theme', val);
+                    this.applyTheme(val);
+                });
+            },
+
+            applyTextSize(size) {
+                const html = document.documentElement;
+                html.classList.remove('text-sm', 'text-base', 'text-lg');
+
+                if (size === 'prose-sm') {
+                    html.classList.add('text-sm');
+                } else if (size === 'prose-base') {
+                    html.classList.add('text-base');
+                } else if (size === 'prose-lg') {
+                    html.classList.add('text-lg');
+                }
+            },
+
+            applyContentWidth(width) {
+                const container = document.getElementById('article-container');
+                if (container) {
+                    container.classList.remove('max-w-3xl', 'max-w-4xl', 'max-w-5xl', 'max-w-7xl', 'w-full');
+                    container.classList.add(width);
+                }
+            },
+
+            applyTheme(theme) {
+                const html = document.documentElement;
+                if (theme === 'dark') {
+                    html.classList.add('dark');
+                    document.getElementById('theme-toggle-dark-icon')?.classList.add('hidden');
+                    document.getElementById('theme-toggle-light-icon')?.classList.remove('hidden');
+                } else if (theme === 'light') {
+                    html.classList.remove('dark');
+                    document.getElementById('theme-toggle-light-icon')?.classList.add('hidden');
+                    document.getElementById('theme-toggle-dark-icon')?.classList.remove('hidden');
+                } else {
+                    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                        html.classList.add('dark');
+                    } else {
+                        html.classList.remove('dark');
+                    }
+                }
+            }
+        }));
+    });
+</script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const article = document.querySelector('.prose');
@@ -368,5 +494,6 @@
         });
     });
 </script>
+
 @endpush
 @endsection

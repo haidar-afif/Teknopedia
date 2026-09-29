@@ -41,4 +41,21 @@ class Article extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    // Di dalam app/Models/Article.php
+
+// Relasi One-to-Many: Satu artikel punya banyak komentar
+public function comments() {
+    return $this->hasMany(Comment::class)->orderBy('created_at', 'desc');
+}
+
+// Relasi One-to-Many: Satu artikel punya banyak rating
+public function ratings() {
+    return $this->hasMany(Rating::class);
+}
+
+// Fungsi opsional untuk menghitung rata-rata rating
+public function averageRating() {
+    return $this->ratings()->avg('score') ?: 0;
+}
 }

@@ -22,7 +22,7 @@
     </div>
 
     <!-- Grid Artikel -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-8">
         @forelse($articles as $article)
             <article class="group bg-white rounded-2xl border border-softcyan-400/30 shadow-sm hover:shadow-xl hover:shadow-softcyan-400/10 transition-all duration-300 overflow-hidden flex flex-col">
                 <a href="{{ route('articles.show', $article->slug) }}" class="h-48 w-full bg-gradient-to-br from-softcyan-400 to-softred-400 block relative overflow-hidden">
