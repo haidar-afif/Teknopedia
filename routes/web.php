@@ -20,8 +20,8 @@ Route::get('/', function () {
     $articles = \App\Models\Article::with(['author', 'category'])
         ->where('status', 'published')
         ->latest('updated_at')
-        ->take(10)
-        ->get();
+        ->paginate(10); // <--- SOLUSI
+        
     return view('home', compact('articles'));
 })->name('home');
 

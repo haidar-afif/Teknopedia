@@ -18,8 +18,8 @@
         </div>
     </aside>
 
-    <!-- Right Content: Article -->
-    <div class="flex-1 max-w-4xl w-full">
+    <!-- Middle Content: Article -->
+    <div id="article-container" class="flex-1 max-w-3xl w-full transition-all duration-300">
     <!-- Breadcrumb & Edit Button (Opsional) -->
     <div class="flex items-center justify-between mb-8">
         <nav class="flex text-sm" aria-label="Breadcrumb">
@@ -86,7 +86,7 @@
     @endif
 
     <!-- Article Content (Prose) -->
-    <article class="prose prose-slate dark:prose-invert lg:prose-lg max-w-none prose-headings:font-outfit prose-a:text-softcyan-500 hover:prose-a:text-softcyan-600 prose-img:rounded-xl">
+    <article id="prose-content" class="prose prose-slate dark:prose-invert max-w-none prose-headings:font-outfit prose-a:text-softcyan-500 hover:prose-a:text-softcyan-600 prose-img:rounded-xl transition-all duration-300">
         {!! Str::markdown($article->content) !!}
     </article>
 
@@ -114,6 +114,71 @@
         </div>
     </div>
     </div>
+    
+    <!-- Right Sidebar: Pengaturan Tampilan -->
+    <aside id="settings-sidebar" class="hidden lg:block w-full lg:w-64 flex-shrink-0 sticky top-24 transition-all duration-300">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-5">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="font-outfit font-bold text-slate-800 dark:text-slate-200 text-lg">Tampilan</h3>
+                <button id="settings-toggle" class="text-slate-500 hover:text-softred-500 transition-colors text-sm font-medium">Sembunyi</button>
+            </div>
+            
+            <div id="settings-panel" class="space-y-6 text-sm transition-all duration-300 overflow-hidden">
+                <!-- Teks -->
+                <div>
+                    <span class="block font-medium text-slate-700 dark:text-slate-300 mb-2">Ukuran Teks</span>
+                    <div class="flex gap-2">
+                        <label class="flex-1 cursor-pointer">
+                            <input type="radio" name="text-size" value="prose-sm" class="peer sr-only">
+                            <div class="text-center px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 peer-checked:border-softcyan-500 peer-checked:bg-softcyan-50 dark:peer-checked:bg-softcyan-900/20 peer-checked:text-softcyan-600 dark:peer-checked:text-softcyan-400 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all text-xs font-medium">Kecil</div>
+                        </label>
+                        <label class="flex-1 cursor-pointer">
+                            <input type="radio" name="text-size" value="prose-base" class="peer sr-only" checked>
+                            <div class="text-center px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 peer-checked:border-softcyan-500 peer-checked:bg-softcyan-50 dark:peer-checked:bg-softcyan-900/20 peer-checked:text-softcyan-600 dark:peer-checked:text-softcyan-400 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all text-sm font-medium">Standar</div>
+                        </label>
+                        <label class="flex-1 cursor-pointer">
+                            <input type="radio" name="text-size" value="prose-lg" class="peer sr-only">
+                            <div class="text-center px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 peer-checked:border-softcyan-500 peer-checked:bg-softcyan-50 dark:peer-checked:bg-softcyan-900/20 peer-checked:text-softcyan-600 dark:peer-checked:text-softcyan-400 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all text-base font-medium">Besar</div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Lebar -->
+                <div>
+                    <span class="block font-medium text-slate-700 dark:text-slate-300 mb-2">Lebar Konten</span>
+                    <div class="flex gap-2">
+                        <label class="flex-1 cursor-pointer">
+                            <input type="radio" name="width-size" value="max-w-3xl" class="peer sr-only" checked>
+                            <div class="text-center px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 peer-checked:border-softcyan-500 peer-checked:bg-softcyan-50 dark:peer-checked:bg-softcyan-900/20 peer-checked:text-softcyan-600 dark:peer-checked:text-softcyan-400 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all font-medium">Standar</div>
+                        </label>
+                        <label class="flex-1 cursor-pointer">
+                            <input type="radio" name="width-size" value="max-w-5xl" class="peer sr-only">
+                            <div class="text-center px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 peer-checked:border-softcyan-500 peer-checked:bg-softcyan-50 dark:peer-checked:bg-softcyan-900/20 peer-checked:text-softcyan-600 dark:peer-checked:text-softcyan-400 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all font-medium">Lebar</div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Warna (Tema) -->
+                <div>
+                    <span class="block font-medium text-slate-700 dark:text-slate-300 mb-2">Tema Warna</span>
+                    <div class="flex gap-2">
+                        <label class="flex-1 cursor-pointer">
+                            <input type="radio" name="theme-color" value="auto" class="peer sr-only">
+                            <div class="text-center px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 peer-checked:border-softcyan-500 peer-checked:bg-softcyan-50 dark:peer-checked:bg-softcyan-900/20 peer-checked:text-softcyan-600 dark:peer-checked:text-softcyan-400 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all font-medium">Auto</div>
+                        </label>
+                        <label class="flex-1 cursor-pointer">
+                            <input type="radio" name="theme-color" value="light" class="peer sr-only">
+                            <div class="text-center px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 peer-checked:border-softcyan-500 peer-checked:bg-softcyan-50 dark:peer-checked:bg-softcyan-900/20 peer-checked:text-softcyan-600 dark:peer-checked:text-softcyan-400 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all font-medium">Terang</div>
+                        </label>
+                        <label class="flex-1 cursor-pointer">
+                            <input type="radio" name="theme-color" value="dark" class="peer sr-only">
+                            <div class="text-center px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 peer-checked:border-softcyan-500 peer-checked:bg-softcyan-50 dark:peer-checked:bg-softcyan-900/20 peer-checked:text-softcyan-600 dark:peer-checked:text-softcyan-400 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all font-medium">Gelap</div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
 </div>
 
 @push('scripts')
@@ -199,7 +264,7 @@
 
         headings.forEach(heading => observer.observe(heading));
 
-        // Toggle functionality
+        // Toggle functionality for TOC
         if (tocToggle) {
             let isHidden = false;
             tocToggle.addEventListener('click', () => {
@@ -217,6 +282,95 @@
                 }
             });
         }
+        
+        // --- Appearance Settings Logic ---
+        
+        // Toggle functionality for Settings
+        const settingsToggle = document.getElementById('settings-toggle');
+        const settingsPanel = document.getElementById('settings-panel');
+        if (settingsToggle) {
+            let isSettingsHidden = false;
+            settingsToggle.addEventListener('click', () => {
+                isSettingsHidden = !isSettingsHidden;
+                if (isSettingsHidden) {
+                    settingsPanel.style.maxHeight = '0px';
+                    settingsPanel.style.opacity = '0';
+                    settingsToggle.textContent = 'Tampil';
+                } else {
+                    settingsPanel.style.maxHeight = '500px';
+                    settingsPanel.style.opacity = '1';
+                    settingsToggle.textContent = 'Sembunyi';
+                }
+            });
+        }
+
+        // Apply Text Size
+        const proseContent = document.getElementById('prose-content');
+        const textRadios = document.querySelectorAll('input[name="text-size"]');
+        textRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                proseContent.classList.remove('prose-sm', 'prose-base', 'prose-lg');
+                if (e.target.value !== 'prose-base') {
+                    proseContent.classList.add(e.target.value);
+                }
+            });
+        });
+
+        // Apply Width Size
+        const articleContainer = document.getElementById('article-container');
+        const widthRadios = document.querySelectorAll('input[name="width-size"]');
+        widthRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                articleContainer.classList.remove('max-w-3xl', 'max-w-5xl');
+                articleContainer.classList.add(e.target.value);
+            });
+        });
+
+        // Apply Theme Color
+        const themeRadios = document.querySelectorAll('input[name="theme-color"]');
+        
+        // set initial checked based on localStorage or auto
+        let currentTheme = localStorage.getItem('color-theme');
+        if (currentTheme === 'dark') {
+            document.querySelector('input[name="theme-color"][value="dark"]').checked = true;
+        } else if (currentTheme === 'light') {
+            document.querySelector('input[name="theme-color"][value="light"]').checked = true;
+        } else {
+            document.querySelector('input[name="theme-color"][value="auto"]').checked = true;
+        }
+
+        themeRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                const val = e.target.value;
+                if (val === 'dark') {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                } else if (val === 'light') {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                } else if (val === 'auto') {
+                    localStorage.removeItem('color-theme');
+                    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                        document.documentElement.classList.add('dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                    }
+                }
+                
+                // Keep the top navbar theme-toggle icons in sync
+                const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+                const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+                if (themeToggleDarkIcon && themeToggleLightIcon) {
+                    if (document.documentElement.classList.contains('dark')) {
+                        themeToggleLightIcon.classList.remove('hidden');
+                        themeToggleDarkIcon.classList.add('hidden');
+                    } else {
+                        themeToggleDarkIcon.classList.remove('hidden');
+                        themeToggleLightIcon.classList.add('hidden');
+                    }
+                }
+            });
+        });
     });
 </script>
 @endpush
