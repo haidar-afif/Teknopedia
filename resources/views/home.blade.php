@@ -30,7 +30,8 @@
         </div>
     </div>
 
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+    <!-- Ubah Max-W Hero menjadi screen-2xl agar sejajar dengan konten bawah -->
+    <div class="relative z-10 max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
         <div class="text-center max-w-3xl mx-auto">
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-700 dark:text-slate-100 tracking-tight font-outfit mb-6 transition-colors">
                 Eksplorasi Dunia <span class="text-transparent bg-clip-text bg-gradient-to-r from-softred-500 to-softcyan-500">Teknologi</span> Tanpa Batas
@@ -52,27 +53,27 @@
                 <h3 class="font-outfit font-bold text-slate-800 dark:text-slate-200 text-lg mb-4">Kategori Utama</h3>
                 <ul class="space-y-2 text-sm">
                     <li>
-                        <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-softcyan-400/10 text-slate-600 dark:text-slate-400 hover:text-softcyan-600 dark:hover:text-softcyan-400 transition-colors group">
+                        <a href="{{ route('articles.index', ['category' => 'web-development']) }}" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-softcyan-400/10 text-slate-600 dark:text-slate-400 hover:text-softcyan-600 dark:hover:text-softcyan-400 transition-colors group {{ request('category') == 'web-development' ? 'bg-softcyan-50/50 text-softcyan-600 font-semibold' : '' }}">
                             <span class="w-8 h-8 rounded-lg bg-softcyan-400/20 text-softcyan-600 flex items-center justify-center group-hover:scale-110 transition-transform">🌐</span>
                             <span class="font-medium">Web Development</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-softcyan-400/10 text-slate-600 dark:text-slate-400 hover:text-softcyan-600 dark:hover:text-softcyan-400 transition-colors group">
-                            <span class="w-8 h-8 rounded-lg bg-softcyan-400/20 text-softcyan-600 flex items-center justify-center group-hover:scale-110 transition-transform">📊</span>
-                            <span class="font-medium">Data Science</span>
+                        <a href="{{ route('articles.index', ['category' => 'data-science']) }}" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-softcyan-400/10 text-slate-600 dark:text-slate-400 hover:text-softcyan-600 dark:hover:text-softcyan-400 transition-colors group {{ request('category') == 'data-science' ? 'bg-softcyan-50/50 text-softcyan-600 font-semibold' : '' }}">
+                            <span class="w-8 h-8 rounded-lg bg-softcyan-400/20 text-softcyan-600 flex items-center justify-center group-hover:scale-110 transition-transform">📡</span>
+                            <span class="font-medium">Hardware & ioT</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-softcyan-400/10 text-slate-600 dark:text-slate-400 hover:text-softcyan-600 dark:hover:text-softcyan-400 transition-colors group">
+                        <a href="{{ route('articles.index', ['category' => 'cybersecurity']) }}" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-softcyan-400/10 text-slate-600 dark:text-slate-400 hover:text-softcyan-600 dark:hover:text-softcyan-400 transition-colors group {{ request('category') == 'cybersecurity' ? 'bg-softcyan-50/50 text-softcyan-600 font-semibold' : '' }}">
                             <span class="w-8 h-8 rounded-lg bg-softcyan-400/20 text-softcyan-600 flex items-center justify-center group-hover:scale-110 transition-transform">🔒</span>
                             <span class="font-medium">Cybersecurity</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-softcyan-400/10 text-slate-600 dark:text-slate-400 hover:text-softcyan-600 dark:hover:text-softcyan-400 transition-colors group">
-                            <span class="w-8 h-8 rounded-lg bg-softcyan-400/20 text-softcyan-600 flex items-center justify-center group-hover:scale-110 transition-transform">📡</span>
-                            <span class="font-medium">Jaringan</span>
+                        <a href="{{ route('articles.index', ['category' => 'jaringan']) }}" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-softcyan-400/10 text-slate-600 dark:text-slate-400 hover:text-softcyan-600 dark:hover:text-softcyan-400 transition-colors group {{ request('category') == 'jaringan' ? 'bg-softcyan-50/50 text-softcyan-600 font-semibold' : '' }}">
+                            <span class="w-8 h-8 rounded-lg bg-softcyan-400/20 text-softcyan-600 flex items-center justify-center group-hover:scale-110 transition-transform">🌐</span>
+                            <span class="font-medium">Database</span>
                         </a>
                     </li>
                 </ul>
@@ -82,11 +83,20 @@
         <!-- Middle Column: Article Grid -->
         <div class="flex-1 w-full">
             <div class="flex items-center justify-between mb-8">
-                <h2 class="text-2xl font-bold text-slate-700 dark:text-slate-100 font-outfit">Artikel Terbaru</h2>
+                <h2 class="text-2xl font-bold text-slate-700 dark:text-slate-100 font-outfit">
+                    @if(request('category'))
+                        Artikel Kategori: {{ ucwords(str_replace('-', ' ', request('category'))) }}
+                    @elseif(request('tag'))
+                        Artikel dengan Tag: #{{ request('tag') }}
+                    @else
+                        Artikel Terbaru
+                    @endif
+                </h2>
                 <a href="{{ route('articles.index') }}" class="text-sm font-medium text-softred-500 hover:text-softred-400 transition-colors">Lihat Semua &rarr;</a>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Menambahkan xl:grid-cols-3 agar artikel tampil 3 kolom di layar lebar dan tidak terlalu menyamping/membesar -->
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
                 @forelse($articles as $article)
                     <article class="group bg-white dark:bg-slate-800 rounded-2xl border border-softcyan-400/30 dark:border-slate-700 shadow-sm hover:shadow-xl hover:shadow-softcyan-400/10 dark:hover:shadow-softcyan-400/5 transition-all duration-300 overflow-hidden flex flex-col">
                         <!-- 1. GAMBAR COVER -->
@@ -123,8 +133,8 @@
                         </div>
                     </article>
                 @empty
-                    <div class="col-span-1 md:col-span-2 text-center py-12">
-                        <p class="text-slate-500">Belum ada artikel yang tersedia.</p>
+                    <div class="col-span-1 md:col-span-2 xl:col-span-3 text-center py-12">
+                        <p class="text-slate-500">Tidak ada artikel yang ditemukan.</p>
                     </div>
                 @endforelse
             </div>
@@ -133,22 +143,6 @@
                 {{ $articles->links() }}
             </div>
         </div>
-
-        <!-- Right Sidebar: Popular Tags (Hidden on Mobile) -->
-        <aside class="hidden lg:block w-64 flex-shrink-0 sticky top-24">
-            <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-5">
-                <h3 class="font-outfit font-bold text-slate-800 dark:text-slate-200 text-lg mb-4">Tag Populer</h3>
-                <div class="flex flex-wrap gap-2">
-                    <a href="#" class="px-3 py-1.5 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-full text-xs font-medium text-slate-600 dark:text-slate-300 hover:border-softcyan-400 hover:text-softcyan-600 dark:hover:border-softcyan-500 transition-colors">#React</a>
-                    <a href="#" class="px-3 py-1.5 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-full text-xs font-medium text-slate-600 dark:text-slate-300 hover:border-softcyan-400 hover:text-softcyan-600 dark:hover:border-softcyan-500 transition-colors">#Laravel</a>
-                    <a href="#" class="px-3 py-1.5 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-full text-xs font-medium text-slate-600 dark:text-slate-300 hover:border-softcyan-400 hover:text-softcyan-600 dark:hover:border-softcyan-500 transition-colors">#TailwindCSS</a>
-                    <a href="#" class="px-3 py-1.5 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-full text-xs font-medium text-slate-600 dark:text-slate-300 hover:border-softcyan-400 hover:text-softcyan-600 dark:hover:border-softcyan-500 transition-colors">#Python</a>
-                    <a href="#" class="px-3 py-1.5 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-full text-xs font-medium text-slate-600 dark:text-slate-300 hover:border-softcyan-400 hover:text-softcyan-600 dark:hover:border-softcyan-500 transition-colors">#AI</a>
-                    <a href="#" class="px-3 py-1.5 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-full text-xs font-medium text-slate-600 dark:text-slate-300 hover:border-softcyan-400 hover:text-softcyan-600 dark:hover:border-softcyan-500 transition-colors">#Cloud</a>
-                </div>
-            </div>
-        </aside>
     </div>
 </div>
 @endsection
-

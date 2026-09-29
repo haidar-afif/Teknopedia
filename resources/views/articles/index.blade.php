@@ -64,7 +64,7 @@
                     @if(request('search'))
                         Tidak ditemukan artikel dengan kata kunci "{{ request('search') }}"
                     @else
-                        Belum ada artikel yang tersedia.
+                        tidak ada artikel yang di temukan.
                     @endif
                 </p>
                 @if(request('search'))

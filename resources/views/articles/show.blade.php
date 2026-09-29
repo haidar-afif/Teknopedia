@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col lg:flex-row gap-8 items-start">
-    
+
     <!-- Left Sidebar: Table of Contents -->
     <aside id="toc-sidebar" class="hidden lg:block w-full lg:w-64 flex-shrink-0 sticky top-24 transition-all duration-300">
         <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-5">
@@ -35,7 +35,7 @@
                 </li>
             </ol>
         </nav>
-        
+
         <!-- Tombol Edit (Contoh jika user login & punya akses) -->
         @if(auth()->check() && (auth()->user()->role === 'admin' || auth()->id() === $article->author_id))
         <a href="{{ route('admin.content.edit', $article->id) }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-softcyan-500 hover:bg-softcyan-400/10 border border-transparent hover:border-softcyan-400/30 transition-all">
@@ -50,7 +50,7 @@
         <h1 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-slate-100 font-outfit leading-tight mb-6">
             {{ $article->title }}
         </h1>
-        
+
         <div class="flex flex-wrap items-center gap-y-4 gap-x-6 text-sm">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-full bg-softcyan-400/20 flex items-center justify-center text-softcyan-500 font-bold border border-softcyan-400/40">
@@ -65,11 +65,6 @@
             <div class="flex items-center gap-2 text-slate-500">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                 {{ $article->updated_at ? $article->updated_at->translatedFormat('d F Y') : '-' }}
-            </div>
-            <div class="hidden sm:block w-1.5 h-1.5 rounded-full bg-slate-300"></div>
-            <div class="flex items-center gap-2 text-slate-500">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                {{ $article->reading_time }} menit membaca
             </div>
         </div>
     </header>
@@ -102,7 +97,7 @@
                 <span class="text-sm text-slate-500 mt-1">-</span>
             @endif
         </div>
-        
+
         <div class="flex items-center gap-3">
             <span class="text-sm font-medium text-slate-900">Bagikan:</span>
             <button class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-[#1DA1F2] hover:text-white transition-colors">
@@ -114,7 +109,7 @@
         </div>
     </div>
     </div>
-    
+
     <!-- Right Sidebar: Pengaturan Tampilan -->
     <aside id="settings-sidebar" class="hidden lg:block w-full lg:w-64 flex-shrink-0 sticky top-24 transition-all duration-300">
         <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-5">
@@ -122,7 +117,7 @@
                 <h3 class="font-outfit font-bold text-slate-800 dark:text-slate-200 text-lg">Tampilan</h3>
                 <button id="settings-toggle" class="text-slate-500 hover:text-softred-500 transition-colors text-sm font-medium">Sembunyi</button>
             </div>
-            
+
             <div id="settings-panel" class="space-y-6 text-sm transition-all duration-300 overflow-hidden">
                 <!-- Teks -->
                 <div>
@@ -188,7 +183,7 @@
         const tocNav = document.getElementById('toc-nav');
         const tocToggle = document.getElementById('toc-toggle');
         const tocSidebar = document.getElementById('toc-sidebar');
-        
+
         if (!article || !tocNav) return;
 
         const headings = article.querySelectorAll('h2, h3');
@@ -208,7 +203,7 @@
             link.href = '#' + heading.id;
             link.textContent = heading.textContent;
             link.className = 'block py-1.5 transition-colors hover:text-softcyan-500 dark:hover:text-softcyan-400 toc-link text-slate-600 dark:text-slate-400';
-            
+
             if (heading.tagName.toLowerCase() === 'h3') {
                 link.classList.add('pl-4', 'text-sm');
             } else {
@@ -216,7 +211,7 @@
             }
 
             link.dataset.target = heading.id;
-            
+
             // Smooth scrolling logic
             link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -225,7 +220,7 @@
                     const headerOffset = 100; // Account for sticky navbar
                     const elementPosition = target.getBoundingClientRect().top;
                     const offsetPosition = elementPosition + window.scrollY - headerOffset;
-                    
+
                     window.scrollTo({
                         top: offsetPosition,
                         behavior: "smooth"
@@ -251,7 +246,7 @@
                         link.classList.remove('text-softcyan-500', 'dark:text-softcyan-400', 'font-bold');
                         link.classList.add('text-slate-600', 'dark:text-slate-400');
                     });
-                    
+
                     // Add active to current
                     const activeLink = document.querySelector(`.toc-link[data-target="${entry.target.id}"]`);
                     if (activeLink) {
@@ -282,9 +277,9 @@
                 }
             });
         }
-        
+
         // --- Appearance Settings Logic ---
-        
+
         // Toggle functionality for Settings
         const settingsToggle = document.getElementById('settings-toggle');
         const settingsPanel = document.getElementById('settings-panel');
@@ -328,7 +323,7 @@
 
         // Apply Theme Color
         const themeRadios = document.querySelectorAll('input[name="theme-color"]');
-        
+
         // set initial checked based on localStorage or auto
         let currentTheme = localStorage.getItem('color-theme');
         if (currentTheme === 'dark') {
@@ -356,7 +351,7 @@
                         document.documentElement.classList.remove('dark');
                     }
                 }
-                
+
                 // Keep the top navbar theme-toggle icons in sync
                 const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
                 const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');

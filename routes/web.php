@@ -15,19 +15,28 @@ use App\Http\Controllers\Contributor\ArticleController as ContributorArticleCont
 |--------------------------------------------------------------------------
 */
 
-// Halaman Utam / Beranda
-Route::get('/', function () {
+// Halaman Utama / Beranda
+Route::get('/', function (Request $request) {
+    $category = $request->input('category');
+
     $articles = \App\Models\Article::with(['author', 'category'])
         ->where('status', 'published')
+        ->when($category, function ($query) use ($category) {
+            $query->whereHas('category', function ($q) use ($category) {
+                $q->where('slug', $category);
+            });
+        })
         ->latest('updated_at')
-        ->paginate(10); // <--- SOLUSI
-        
+        ->paginate(10)
+        ->withQueryString();
+
     return view('home', compact('articles'));
 })->name('home');
 
 // Halaman Daftar Artikel & Pencarian Public
 Route::get('/artikel', function (Request $request) {
     $search = $request->input('search');
+    $category = $request->input('category');
 
     $articles = \App\Models\Article::with(['author', 'category'])
         ->where('status', 'published')
@@ -35,6 +44,11 @@ Route::get('/artikel', function (Request $request) {
             $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%{$search}%")
                   ->orWhere('content', 'like', "%{$search}%");
+            });
+        })
+        ->when($category, function ($query) use ($category) {
+            $query->whereHas('category', function ($q) use ($category) {
+                $q->where('slug', $category);
             });
         })
         ->latest('updated_at')
