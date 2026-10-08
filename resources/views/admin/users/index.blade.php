@@ -114,8 +114,8 @@
                                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Aktif
                                     </span>
                                 @else
-                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-rose-50 text-rose-700 border border-rose-200">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> Ditangguhkan
+                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-softred-50 text-softred-700 border border-softred-200">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-softred-500"></span> Ditangguhkan
                                     </span>
                                 @endif
                             </td>
@@ -159,7 +159,7 @@
                                                     confirmText: 'Hapus Akun',
                                                     isDestructive: true
                                                 })" 
-                                                class="p-1.5 text-rose-500 hover:text-rose-700 hover:bg-rose-50 rounded-lg transition-colors" 
+                                                class="p-1.5 text-softred-500 hover:text-softred-700 hover:bg-softred-50 rounded-lg transition-colors" 
                                                 title="Hapus Pengguna">
                                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                                         </button>

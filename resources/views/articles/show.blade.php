@@ -163,35 +163,6 @@
 </div>
 <hr class="my-8 border-gray-300">
 
-<!-- 1. BLOK RATING -->
-<section class="max-w-4xl mx-auto p-6 bg-gray-50 rounded-lg">
-    <div class="flex items-center justify-between">
-        <div>
-            <h3 class="text-xl font-semibold">Beri Nilai Artikel Ini</h3>
-            <p class="text-sm text-gray-600">Rata-rata Rating: {{ number_format($article->averageRating(), 1) }} / 5</p>
-        </div>
-
-        @auth
-            <!-- Form Rating untuk User Login -->
-            <form action="{{ route('rating.store', $article->id) }}" method="POST" class="flex gap-2">
-                @csrf
-                <select name="score" class="border p-2 rounded">
-                    <option value="5">5 - Sangat Bagus</option>
-                    <option value="4">4 - Bagus</option>
-                    <option value="3">3 - Cukup</option>
-                    <option value="2">2 - Kurang</option>
-                    <option value="1">1 - Sangat Buruk</option>
-                </select>
-                <button type="submit" class="bg-softred-500 text-white px-4 py-2 rounded hover:bg-red-500">Kirim Nilai</button>
-            </form>
-        @endauth
-
-        @guest
-            <!-- Pesan untuk Guest -->
-            <p class="text-sm text-red-500 italic">Silakan <a href="{{ route('login') }}" class="underline font-bold">login</a> untuk memberi rating.</p>
-        @endguest
-    </div>
-</section>
 
 <!-- 2. BLOK KOMENTAR -->
 <section class="max-w-4xl mx-auto p-6 mt-6">
@@ -201,7 +172,7 @@
         <!-- Form Komentar untuk User Login -->
         <form action="{{ route('comment.store', $article->id) }}" method="POST" class="mb-8">
             @csrf
-            <textarea name="content" class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-200" rows="3" placeholder="Tambahkan informasi atau koreksi..." required></textarea>
+            <textarea name="content" class="w-full p-3 border rounded-lg focus:ring focus:ring-softcyan-200" rows="3" placeholder="Tambahkan informasi atau koreksi..." required></textarea>
             <button type="submit" class="mt-2 px-5 py-2 bg-softcyan-400 text-slate-600 font-semibold rounded-lg hover:bg-softcyan-500">Kirim Komentar</button>
         </form>
     @endauth

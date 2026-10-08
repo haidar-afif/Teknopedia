@@ -45,9 +45,9 @@
 
         <!-- Validation Errors Alert -->
         @if ($errors->any())
-            <div class="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs">
+            <div class="p-4 rounded-xl bg-softred-50 border border-softred-200 text-softred-800 text-xs">
                 <div class="font-bold flex items-center gap-1.5 mb-1 text-sm">
-                    <svg class="w-4 h-4 text-rose-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <svg class="w-4 h-4 text-softred-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     Terdapat kesalahan input formulir:
                 </div>
                 <ul class="list-disc list-inside space-y-0.5">
@@ -66,7 +66,7 @@
                 <!-- Title & Slug Card -->
                 <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs space-y-4">
                     <div>
-                        <label for="title" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Judul Artikel <span class="text-rose-500">*</span></label>
+                        <label for="title" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Judul Artikel <span class="text-softred-500">*</span></label>
                         <input type="text" name="title" id="title" value="{{ old('title', $article->title) }}" placeholder="Contoh: Arsitektur Microservices Modern dengan Docker & Kubernetes" required oninput="generateSlug(this.value)" class="block w-full px-4 py-2.5 text-sm sm:text-base font-medium border border-slate-200 rounded-xl bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-softcyan-400/50 focus:border-softcyan-400 transition-all">
                     </div>
                 </div>
@@ -145,7 +145,7 @@
                     </div>
 
                     <div>
-                        <label for="category_id" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Kategori <span class="text-rose-500">*</span></label>
+                        <label for="category_id" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Kategori <span class="text-softred-500">*</span></label>
                         <select name="category_id" id="category_id" required class="block w-full px-3.5 py-2.5 text-xs sm:text-sm border border-slate-200 rounded-xl bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-softcyan-400/50 focus:border-softcyan-400 text-slate-700">
                             <option value="">Pilih Kategori...</option>
                             @foreach($categories as $cat)

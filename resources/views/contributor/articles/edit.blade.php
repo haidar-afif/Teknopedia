@@ -43,7 +43,7 @@
                     <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-5">
                         <div>
                             <label for="title" class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
-                                Judul Artikel <span class="text-red-500">*</span>
+                                Judul Artikel <span class="text-softred-500">*</span>
                             </label>
                             <input
                                 type="text"
@@ -62,7 +62,7 @@
                         <!-- Toolbar Editor -->
                         <div class="p-3 bg-slate-50/80 border-b border-slate-200/80 flex flex-wrap items-center justify-between gap-2">
                             <div class="flex items-center gap-1 bg-slate-200/60 p-1 rounded-lg">
-                                <button type="button" class="px-3 py-1 bg-white text-red-500 font-bold text-xs rounded-md shadow-sm">Tulis Konten</button>
+                                <button type="button" class="px-3 py-1 bg-white text-softred-500 font-bold text-xs rounded-md shadow-sm">Tulis Konten</button>
                                 <button type="button" class="px-3 py-1 text-slate-600 font-medium text-xs hover:text-slate-900">Live Preview</button>
                             </div>
 
@@ -109,7 +109,7 @@
                         <!-- Kategori -->
                         <div>
                             <label for="category_id" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
-                                Kategori <span class="text-red-500">*</span>
+                                Kategori <span class="text-softred-500">*</span>
                             </label>
                             <select
                                 name="category_id"

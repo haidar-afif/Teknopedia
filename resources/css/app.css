@@ -12,8 +12,25 @@
     --font-outfit: 'Outfit', ui-sans-serif, system-ui, sans-serif;
 
     /* Custom Soft Colors */
+    --color-softred-50: #fff5f5;
+    --color-softred-100: #ffe3e3;
+    --color-softred-200: #ffc9c9;
+    --color-softred-300: #ffa8a8;
     --color-softred-400: #F7ADAD;
     --color-softred-500: #F29191;
+    --color-softred-600: #e06c6c;
+    --color-softred-700: #c94f4f;
+    --color-softred-800: #a63939;
+    --color-softred-900: #822727;
+
+    --color-softcyan-50: #f0fdfa;
+    --color-softcyan-100: #ccfbf1;
+    --color-softcyan-200: #99f6e4;
+    --color-softcyan-300: #5eead4;
     --color-softcyan-400: #CCFBFA;
     --color-softcyan-500: #B1E5E6;
+    --color-softcyan-600: #82c8c9;
+    --color-softcyan-700: #5fa5a6;
+    --color-softcyan-800: #428283;
+    --color-softcyan-900: #2d6465;
 }

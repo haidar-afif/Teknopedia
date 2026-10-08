@@ -12,7 +12,7 @@
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|outfit:400,500,600,700,800&display=swap" rel="stylesheet" />
 
     <!-- Tailwind CDN Script Harus Pertama -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
 
     <!-- Konfigurasi Warna Kustom Tailwind (Wajib tailwind.config) -->
     <script>

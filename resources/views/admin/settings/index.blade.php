@@ -32,7 +32,7 @@
                     </div>
 
                     <div>
-                        <label for="site_name" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Nama Website <span class="text-rose-500">*</span></label>
+                        <label for="site_name" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Nama Website <span class="text-softred-500">*</span></label>
                         <input type="text" name="site_name" id="site_name" value="{{ old('site_name', $settings['site_name'] ?? 'Ensiklopedia IT') }}" required oninput="updateSeoPreview()" class="block w-full px-3.5 py-2.5 text-sm border border-slate-200 rounded-xl bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-softcyan-400/50 focus:border-softcyan-400 transition-all">
                     </div>
 
@@ -80,7 +80,7 @@
                 <!-- Section 3: Media Sosial -->
                 <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-4">
                     <div class="flex items-center gap-2.5 pb-3 border-b border-slate-100">
-                        <div class="w-8 h-8 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center">
+                        <div class="w-8 h-8 rounded-lg bg-softcyan-50 text-softcyan-600 flex items-center justify-center">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
                         </div>
                         <div>

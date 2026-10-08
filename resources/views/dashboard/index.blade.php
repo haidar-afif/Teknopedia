@@ -6,7 +6,7 @@
 <!-- Stats Cards -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
     <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex items-center">
-        <div class="w-12 h-12 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600 mr-4">
+        <div class="w-12 h-12 rounded-lg bg-softcyan-50 flex items-center justify-center text-softcyan-600 mr-4">
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H14" /></svg>
         </div>
         <div>
@@ -26,7 +26,7 @@
     </div>
     
     <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex items-center">
-        <div class="w-12 h-12 rounded-lg bg-rose-50 flex items-center justify-center text-rose-600 mr-4">
+        <div class="w-12 h-12 rounded-lg bg-softred-50 flex items-center justify-center text-softred-600 mr-4">
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
         </div>
         <div>
@@ -42,12 +42,12 @@
         <h3 class="text-lg font-bold text-slate-900 font-outfit">Artikel Terbaru</h3>
         <div class="flex items-center gap-2">
             <div class="relative">
-                <input type="text" placeholder="Cari artikel..." class="block w-full pl-9 pr-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                <input type="text" placeholder="Cari artikel..." class="block w-full pl-9 pr-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-softcyan-500 focus:border-softcyan-500">
                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <svg class="h-4 w-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                 </div>
             </div>
-            <a href="/dashboard/articles/create" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-sm transition-colors whitespace-nowrap">
+            <a href="/dashboard/articles/create" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-softcyan-600 hover:bg-softcyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-softcyan-500 shadow-sm transition-colors whitespace-nowrap">
                 + Tulis Baru
             </a>
         </div>
@@ -72,7 +72,7 @@
                         <div class="text-sm text-slate-500">Oleh: John Doe</div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-softcyan-100 text-softcyan-800">
                             Web Dev
                         </span>
                     </td>
@@ -85,8 +85,8 @@
                         18 Sep 2026
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
-                        <a href="#" class="text-rose-600 hover:text-rose-900">Hapus</a>
+                        <a href="#" class="text-softcyan-600 hover:text-softcyan-900 mr-3">Edit</a>
+                        <a href="#" class="text-softred-600 hover:text-softred-900">Hapus</a>
                     </td>
                 </tr>
 
@@ -110,8 +110,8 @@
                         15 Sep 2026
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
-                        <a href="#" class="text-rose-600 hover:text-rose-900">Hapus</a>
+                        <a href="#" class="text-softcyan-600 hover:text-softcyan-900 mr-3">Edit</a>
+                        <a href="#" class="text-softred-600 hover:text-softred-900">Hapus</a>
                     </td>
                 </tr>
                 
@@ -122,12 +122,12 @@
                         <div class="text-sm text-slate-500">Oleh: Bob Wilson</div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-softcyan-100 text-softcyan-800">
                             Web Dev
                         </span>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-100 text-rose-800">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-softred-100 text-softred-800">
                             Pending Review
                         </span>
                     </td>
@@ -135,7 +135,7 @@
                         14 Sep 2026
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-3">Review</a>
+                        <a href="#" class="text-softcyan-600 hover:text-softcyan-900 mr-3">Review</a>
                         <a href="#" class="text-slate-400 hover:text-slate-600">Edit</a>
                     </td>
                 </tr>
@@ -157,7 +157,7 @@
                         <span class="sr-only">Previous</span>
                         <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
                     </a>
-                    <a href="#" class="relative inline-flex items-center px-4 py-2 border border-slate-300 bg-indigo-50 text-sm font-medium text-indigo-600">1</a>
+                    <a href="#" class="relative inline-flex items-center px-4 py-2 border border-slate-300 bg-softcyan-50 text-sm font-medium text-softcyan-600">1</a>
                     <a href="#" class="relative inline-flex items-center px-4 py-2 border border-slate-300 bg-white text-sm font-medium text-slate-700 hover:bg-slate-50">2</a>
                     <a href="#" class="relative inline-flex items-center px-4 py-2 border border-slate-300 bg-white text-sm font-medium text-slate-700 hover:bg-slate-50">3</a>
                     <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-slate-300 bg-white text-sm font-medium text-slate-500 hover:bg-slate-50">

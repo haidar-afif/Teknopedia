@@ -22,10 +22,10 @@
             <div>
                 <label for="name" class="block text-sm font-medium text-slate-700 mb-1">Nama Lengkap</label>
                 <input id="name" name="name" type="text" required value="{{ old('name') }}"
-                    class="w-full px-4 py-2.5 rounded-xl border @error('name') border-rose-500 @else border-slate-200 @enderror text-sm focus:outline-none focus:border-softcyan-400 transition-colors"
+                    class="w-full px-4 py-2.5 rounded-xl border @error('name') border-softred-500 @else border-slate-200 @enderror text-sm focus:outline-none focus:border-softcyan-400 transition-colors"
                     placeholder="Masukkan nama lengkap">
                 @error('name')
-                    <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
+                    <p class="text-softred-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
             </div>
 
@@ -33,10 +33,10 @@
             <div>
                 <label for="email" class="block text-sm font-medium text-slate-700 mb-1">Alamat Email</label>
                 <input id="email" name="email" type="email" required value="{{ old('email') }}"
-                    class="w-full px-4 py-2.5 rounded-xl border @error('email') border-rose-500 @else border-slate-200 @enderror text-sm focus:outline-none focus:border-softcyan-400 transition-colors"
+                    class="w-full px-4 py-2.5 rounded-xl border @error('email') border-softred-500 @else border-slate-200 @enderror text-sm focus:outline-none focus:border-softcyan-400 transition-colors"
                     placeholder="nama@email.com">
                 @error('email')
-                    <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
+                    <p class="text-softred-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
             </div>
 
@@ -44,10 +44,10 @@
             <div>
                 <label for="password" class="block text-sm font-medium text-slate-700 mb-1">Password</label>
                 <input id="password" name="password" type="password" required
-                    class="w-full px-4 py-2.5 rounded-xl border @error('password') border-rose-500 @else border-slate-200 @enderror text-sm focus:outline-none focus:border-softcyan-400 transition-colors"
+                    class="w-full px-4 py-2.5 rounded-xl border @error('password') border-softred-500 @else border-slate-200 @enderror text-sm focus:outline-none focus:border-softcyan-400 transition-colors"
                     placeholder="Minimal 8 karakter">
                 @error('password')
-                    <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
+                    <p class="text-softred-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
             </div>
 

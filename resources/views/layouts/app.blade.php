@@ -16,7 +16,7 @@
 
     <!-- Scripts / Styles -->
     <!-- 1. Load CDN Tailwind terlebih dahulu -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
 
     <!-- 2. TARUH DI SINI: Konfigurasi warna kustom agar dibaca oleh CDN -->
     <script>
@@ -139,7 +139,7 @@
         <!-- Tombol Logout -->
         <form action="{{ route('logout') }}" method="POST" class="inline">
             @csrf
-            <button type="submit" class="text-sm font-medium text-rose-500 hover:text-rose-600 px-3 py-2 transition-colors">
+            <button type="submit" class="text-sm font-medium text-softred-500 hover:text-softred-600 px-3 py-2 transition-colors">
                 Logout
             </button>
         </form>
